@@ -3631,5 +3631,37 @@
             </div>
         </div>
         <!--/allrecords-->
+        <script>
+          const GOOGLE_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxzJGjGw9x9AExj22pSCWk5yDT0-gy3ICLLJLbGQrpcjDvGlDBcZRkTWygn0DREsa-8qQ/exec';
+
+          document.addEventListener('submit', function(event) {
+            const form = event.target;
+
+            if (!form.closest('.tn-atom__form')) {
+              return;
+            }
+
+            event.preventDefault();
+
+            const formData = new FormData(form);
+
+            const payload = {
+              name: formData.get('Name') || '',
+              answer: formData.get('Radio') || ''
+            };
+
+            fetch(GOOGLE_SCRIPT_URL, {
+              method: 'POST',
+              mode: 'no-cors',
+              headers: {
+                'Content-Type': 'text/plain;charset=utf-8'
+              },
+              body: JSON.stringify(payload)
+            });
+
+            form.reset();
+            alert('Рахмет! Жауабыңыз қабылданды.');
+          }, true);
+        </script>
     </body>
 </html>
